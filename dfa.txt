@@ -1,0 +1,4 @@
+;;
+8;socket,bind,listen,read,wait,close,connect,abort;
+> socket;
+* abort,close;
