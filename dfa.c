@@ -17,7 +17,7 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, STATUS *start){
 	int i,j,t;
 	FILE *f;
 	//Algoritma
-	f=fopen("tes.txt", "r");
+	f=fopen("dfa.txt", "r");
 	MakeEmptyArrStatus(TabS);
 	//baca banyak states
 	baca= (char) fgetc(f);
