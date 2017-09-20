@@ -4,39 +4,39 @@
 #include <stdio.h>
 
 void MakeEmptyArrStatus(ArrSTATUS *TabS){
-	TabS->Neff=0;
+	(*TabS).Neff=0;
 }
 
 void MakeEmptyArrALPHA(ArrALPHA *TabA){
-	TabA->Neff=0;
+	(*TabA).Neff=0;
 }
 
 void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, STATUS *start){
 	//Kamus
-	char baca, STemp[10];
+	char baca, STemp[MaxNStr];
 	int i,j,t;
 	FILE *f;
 	//Algoritma
-	f=fopen("dfa.txt", "r");
+	f=fopen("tes.txt", "r");
 	MakeEmptyArrStatus(TabS);
 	//baca banyak states
 	baca= (char) fgetc(f);
 	while(baca!=';'){
-		TabS->Neff=10*(TabS->Neff)+baca-'0';
+		(*TabS).Neff=10*((*TabS).Neff)+baca-'0';
 		baca= (char) fgetc(f);
 	}
 	//baca semua states
 	baca= (char) fgetc(f);
+	SetStrNull((*TabS).S[0].state);
 	for(i=0,j=0;baca!='\n';){
 		if(baca!=';'&&baca!=','){
-			TabS->S[i].state[j]=baca;
+			(*TabS).S[i].state[j]=baca;
 			j++;
 		}
 		else{
-			if(j<10)
-				TabS->S[i].state[j]='\0';
-			TabS->S[i].finalstate=false;
+			(*TabS).S[i].finalstate=false;
 			i++;
+			SetStrNull((*TabS).S[i].state);
 			j=0;
 		}
 		baca= (char) fgetc(f);
@@ -45,20 +45,20 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, STATUS *start){
 	MakeEmptyArrALPHA(TabA);
 	baca = (char) fgetc(f);
 	while(baca!=';'){
-		TabA->Neff=10*(TabA->Neff)+baca-'0';
+		(*TabA).Neff=10*((*TabA).Neff)+baca-'0';
 		baca= (char) fgetc(f);
 	}
 	//baca semua alphabet
 	baca= (char) fgetc(f);
+	SetStrNull((*TabA).A[0].alpha);
 	for(i=0,j=0;baca!='\n';){
 		if(baca!=';'&&baca!=','){
-			TabA->A[i].alpha[j]=baca;
+			(*TabA).A[i].alpha[j]=baca;
 			j++;
 		}
 		else{
-			if(j<10)
-				TabA->A[i].alpha[j]='\0';
 			i++;
+			SetStrNull((*TabA).A[i].alpha);
 			j=0;
 		}
 		baca= (char) fgetc(f);
@@ -68,6 +68,7 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, STATUS *start){
 		baca= (char) fgetc(f);
 	}while(baca!=' ');
 	baca= (char) fgetc(f);
+	SetStrNull(start->state);
 	for(i=0;baca!='\n';){
 		if(baca!=';'){
 			start->state[i]=baca;
@@ -79,37 +80,40 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, STATUS *start){
 		}
 		baca= (char) fgetc(f);
 	}
-	start->state[i]='\0';
+	start->finalstate=false;
 	//baca final state
 	do{
 		baca= (char) fgetc(f);
 	}while(baca!=' ');
 	baca= (char) fgetc(f);
+	SetStrNull(STemp);
 	for(i=0;baca!='\n';){
 		if(baca!=';'&&baca!=','){
 			STemp[i]=baca;
 			i++;
 		}
 		else{
-			if(i<10)
-				STemp[i]='\0';
-			TabS->S[CariState(*TabS, STemp)].finalstate=true;
+			(*TabS).S[CariState(*TabS, STemp)].finalstate=true;
+			SetStrNull(STemp);
 			i=0;
 		}
 		baca= (char) fgetc(f);
 	}
 	//baca relasi
 	baca= (char) fgetc(f);
+	SetStrNull((*R).inState[0].state);
+	SetStrNull((*R).Alphabet[0].alpha);
+	SetStrNull((*R).fState[0].state);
 	for(i=0,j=0,t=1;baca!=EOF&&i<1225;){
 		if(baca!=';'&&baca!=' '&&baca!='\n'){
 			if(t==1){
-				R->inState[i].state[j]=baca;
+				(*R).inState[i].state[j]=baca;
 			}
 			else if(t==2){
-				R->Alphabet[i].alpha[j]=baca;
+				(*R).Alphabet[i].alpha[j]=baca;
 			}
 			else{
-				R->fState[i].state[j]=baca;
+				(*R).fState[i].state[j]=baca;
 			}
 			j++;
 		}
@@ -119,15 +123,18 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, STATUS *start){
 			if(t>=3){
 				t=1;
 				i++;
+				SetStrNull((*R).inState[i].state);
+				SetStrNull((*R).Alphabet[i].alpha);
+				SetStrNull((*R).fState[i].state);
 			}
 			else
 				t++;
-			TabS->S[CariState(*TabS, STemp)].finalstate=true;
 			j=0;
 		}
 		baca= (char) fgetc(f);
 	}
-	R->Neff=i;
+	(*R).Neff=i;
+	fclose(f);
 }
 
 void TulisData(ArrSTATUS TabS, ArrALPHA TabA, RELASI R, STATUS start){
@@ -152,6 +159,13 @@ void TulisData(ArrSTATUS TabS, ArrALPHA TabA, RELASI R, STATUS start){
 	}
 }
 
+void SetStrNull(char *s){
+	int i;
+	for(i=0;i<MaxNStr;i++){
+		s[i]='\0';
+	}
+}
+
 int CariState(ArrSTATUS TabS, char N[]){
 	int i;
 	for(i=0;i<TabS.Neff;i++){
@@ -163,7 +177,7 @@ int CariState(ArrSTATUS TabS, char N[]){
 
 boolean CompStatus(char A[], char B[]){
 	int i;
-	for(i=0;i<10&&A[i]!='\0'&&B[i]!='\0';i++)
+	for(i=0;i<MaxNStr&&A[i]!='\0'&&B[i]!='\0';i++)
 		if(A[i]!=B[i])
 			return false;
 	return A[i]==B[i];
