@@ -31,6 +31,7 @@ typedef struct{
 	int Neff;
 } RELASI;
 
+//Kelompok Konstruktor
 void MakeEmptyArrStatus(ArrSTATUS *TabS);
 /* I.S : TabS sembarang
    F.S : TabS terdefinisi kosong
@@ -42,6 +43,7 @@ void MakeEmptyArrALPHA(ArrALPHA *TabA);
    deskripsi : membuat Tabel TabA kosong
 */
 
+//Kelompok I/O
 void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, STATUS *start);
 /* I.S : TabS, TabA, R, start sembarang
    F.S : TabS, TabA, R, start terisi / terdefinisi
@@ -60,6 +62,11 @@ void TulisData(ArrSTATUS TabS, ArrALPHA TabA, RELASI R, STATUS start);
 */
 
 //Kelompok manipulasi string
+void SetStrNull(char *s);
+/* I.S. : string S sembarang
+   F.S. : string S terdefinisi kosong/Null
+   Deskripsi : mengisi string S dengan Null
+*/
 int CariState(ArrSTATUS TabS, char N[]);
 /* Mengembalikan indeks dimana status N berada di tabel TabS, jika tidak ditemukan akan mengembalikan IdxUndef
    Prekondisi : TabS dan N terdefinisi
