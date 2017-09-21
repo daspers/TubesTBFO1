@@ -32,12 +32,13 @@ typedef struct{
 } RELASI;
 
 typedef struct{
-	ALPHABET A[35];
+	int IdxA[50];
 	int Neff;
+	boolean ValidIn;
 }INPUT;
 
 typedef struct{
-	INPUT I[35];
+	INPUT I[20];
 	int Neff;
 }ArrINPUT;
 
@@ -55,8 +56,8 @@ void MakeEmptyArrALPHA(ArrALPHA *TabA);
 
 //Kelompok I/O
 void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, STATUS *start);
-/* I.S : TabS, TabA, R, start sembarang
-   F.S : TabS, TabA, R, start terisi / terdefinisi
+/* I.S. : TabS, TabA, R, start sembarang
+   F.S. : TabS, TabA, R, start terisi / terdefinisi
    Proses : 
    1) Membuka dan membaca file eksternal
    2) Membaca banyak status dan membaca semua status di file eksternal dan menyimpannya ke TabS
@@ -65,10 +66,19 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, STATUS *start);
    5) Membaca semua status final dari file eksternal dan mengubah boolean finalstate di TabS menjadi true
    6) Membaca semua fungsi transisi pada file eksternal
 */
+void BacaInputDFA(ArrINPUT *TabI);
+/* I.S. : TabI sembarang
+   F.S. : TabI terdefinisi
+   Proses : Membaca banyak input dan semua input DFA, dan menyimpannya ke tabel TabI
+*/
 void TulisData(ArrSTATUS TabS, ArrALPHA TabA, RELASI R, STATUS start);
-/* I.S : TabS, TabA, R, start terdefinisi
-   F.S : TabS, TabA, R, start terdefinisi
+/* I.S. : TabS, TabA, R, start terdefinisi
+   F.S. : TabS, TabA, R, start terdefinisi
    Deskripsi : Menulis Alfabet, status, status mulai, status akhir, dan fungsi transisi ke layar
+*/
+void TulisHasil(ArrINPUT TabI);
+/* I.S. : TabI terdefinisi
+   Deskripsi : Menulis ke file eksternal semua proses perpindahan status karena input
 */
 
 //Kelompok manipulasi string
@@ -86,4 +96,5 @@ boolean CompStatus (char A[], char B[]);
 /* Mengembalikan True jika string A dan string B sama, dan false jika tidak sama
    Prekondisi : A dan B terdefinisi
 */
+
 #endif
