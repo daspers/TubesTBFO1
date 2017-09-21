@@ -31,6 +31,16 @@ typedef struct{
 	int Neff;
 } RELASI;
 
+typedef struct{
+	ALPHABET A[35];
+	int Neff;
+}INPUT;
+
+typedef struct{
+	INPUT I[35];
+	int Neff;
+}ArrINPUT;
+
 //Kelompok Konstruktor
 void MakeEmptyArrStatus(ArrSTATUS *TabS);
 /* I.S : TabS sembarang
