@@ -4,30 +4,32 @@
 #include "boolean.h"
 
 #define IdxUndef -1
+#define MaxNArr 35
+#define MaxNStr 10
 
 typedef struct{
-	char state[10];
+	char state[MaxNStr];
 	boolean finalstate;
 } STATUS;
 
 typedef struct{
-	STATUS S[35];
+	STATUS S[MaxNArr];
 	int Neff;
 } ArrSTATUS;
 
 typedef struct{
-	char alpha[10];
+	char alpha[MaxNStr];
 } ALPHABET;
 
 typedef struct{
-	ALPHABET A[35];
+	ALPHABET A[MaxNArr];
 	int Neff;
 } ArrALPHA;
 
 typedef struct{
-	STATUS inState[1225];
-	ALPHABET Alphabet[1225];
-	STATUS fState[1225];
+	STATUS inState[MaxNArr*MaxNArr];
+	ALPHABET Alphabet[MaxNArr*MaxNArr];
+	STATUS fState[MaxNArr*MaxNArr];
 	int Neff;
 } RELASI;
 
