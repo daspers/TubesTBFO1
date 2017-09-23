@@ -175,6 +175,15 @@ int CariState(ArrSTATUS TabS, char N[]){
 	return IdxUndef;
 }
 
+int CariAlphabet(ArrAlphabet TabA, char N[]){
+	int i;
+	for(i=0;i<TabA.Neff;i++){
+		if(CompStatus(TabA.A[i].state,N))
+			return i;
+	}
+	return IdxUndef;
+}
+
 boolean CompStatus(char A[], char B[]){
 	int i;
 	for(i=0;i<MaxNStr&&A[i]!='\0'&&B[i]!='\0';i++)
