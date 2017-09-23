@@ -13,7 +13,7 @@ void MakeEmptyArrALPHA(ArrALPHA *TabA){
 
 void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, STATUS *start){
 	//Kamus
-	char baca, STemp[MaxNStr];
+	char baca, STemp[MaxNStr], STemp2[MaxNStr], ATemp[MaxNStr];
 	int i,j,t;
 	FILE *f;
 	//Algoritma
@@ -107,25 +107,26 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, STATUS *start){
 	for(i=0,j=0,t=1;baca!=EOF&&i<1225;){
 		if(baca!=';'&&baca!=' '&&baca!='\n'){
 			if(t==1){
-				(*R).inState[i].state[j]=baca;
+				STemp[j]=baca;
 			}
 			else if(t==2){
-				(*R).Alphabet[i].alpha[j]=baca;
+				ATemp[j]=baca;
 			}
 			else{
-				(*R).fState[i].state[j]=baca;
+				STemp2[j]=baca;
 			}
 			j++;
 		}
 		else if(baca!='\n'){
-			if(i<10)
-				STemp[i]='\0';
 			if(t>=3){
-				t=1;
+				(*R).IdxInState[i] = CariState(TabS, STemp);
+				(*R).IdxAlphabet[i] = CariAlpha(TabA, ATemp);
+				(*R).IdxFState[i] = CariState(TabS, STemp2);
 				i++;
-				SetStrNull((*R).inState[i].state);
-				SetStrNull((*R).Alphabet[i].alpha);
-				SetStrNull((*R).fState[i].state);
+				SetStrNull(STemp);
+				SetStrNull(ATemp);
+				SetStrNull(STemp2);
+				t=1;
 			}
 			else
 				t++;
