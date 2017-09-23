@@ -73,7 +73,7 @@ void BacaInputDFA(ArrINPUT *TabI);
    F.S. : TabI terdefinisi
    Proses : Membaca banyak input dan semua input DFA, dan menyimpannya ke tabel TabI
 */
-void TulisData(ArrSTATUS TabS, ArrALPHA TabA, RELASI R, STATUS start);
+void TulisData(ArrSTATUS TabS, ArrALPHA TabA, RELASI R, int *IdxStart);
 /* I.S. : TabS, TabA, R, start terdefinisi
    F.S. : TabS, TabA, R, start terdefinisi
    Deskripsi : Menulis Alfabet, status, status mulai, status akhir, dan fungsi transisi ke layar
