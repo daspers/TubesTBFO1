@@ -175,7 +175,7 @@ int CariState(ArrSTATUS TabS, char N[]){
 	return IdxUndef;
 }
 
-int CariAlphabet(ArrAlphabet TabA, char N[]){
+int CariAlphabet(ArrALPHA TabA, char N[]){
 	int i;
 	for(i=0;i<TabA.Neff;i++){
 		if(IsStrEq(TabA.A[i].state,N))
