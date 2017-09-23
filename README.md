@@ -8,3 +8,4 @@ Deskripsi File :
 3. **dfa.txt** : File eksternal yang berisi status-status, alfabet, status awal, status akhir, dan fungsi transisi dari suatu *DFA*
 4. **inputdfa.txt** : File eksternal yang berisi input *DFA* berupa alfabet dari pengguna
 5. **drive.c** : File utama yang menjalankan program *DFA*
+6. **boolean.h** : File header yang berisi tipe bentukan boolean
