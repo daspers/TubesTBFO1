@@ -27,9 +27,9 @@ typedef struct{
 } ArrALPHA;
 
 typedef struct{
-	STATUS inState[MaxNArr*MaxNArr];
-	ALPHABET Alphabet[MaxNArr*MaxNArr];
-	STATUS fState[MaxNArr*MaxNArr];
+	int IdxInState[MaxNArr*MaxNArr];
+	int IdxAlphabet[MaxNArr*MaxNArr];
+	int IntFState[MaxNArr*MaxNArr];
 	int Neff;
 } RELASI;
 
