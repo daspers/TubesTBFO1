@@ -40,7 +40,7 @@ typedef struct{
 }INPUT;
 
 typedef struct{
-	INPUT I[20];
+	INPUT In[20];
 	int Neff;
 }ArrINPUT;
 
@@ -89,14 +89,29 @@ void SetStrNull(char *s);
    F.S. : string S terdefinisi kosong/Null
    Deskripsi : mengisi string S dengan Null
 */
+boolean CompStatus (char A[], char B[]);
+/* Mengembalikan True jika string A dan string B sama, dan false jika tidak sama
+   Prekondisi : A dan B terdefinisi
+*/
+
+//Kelompok DFA
 int CariState(ArrSTATUS TabS, char N[]);
 /* Mengembalikan indeks dimana status N berada di tabel TabS, jika tidak ditemukan akan mengembalikan IdxUndef
    Prekondisi : TabS dan N terdefinisi
    Deskripsi : Mencari status N di tabel TabS
 */
-boolean CompStatus (char A[], char B[]);
-/* Mengembalikan True jika string A dan string B sama, dan false jika tidak sama
-   Prekondisi : A dan B terdefinisi
+int CariAlphabet(ArrALPHABET TabA, char N[]);
+/* Mengembalikan indeks dimana alfabet N berada di tabel TabA, jika tidak ditemukan akan mengembalikan IdxUndef
+   Prekondisi : TabA dan N terdefinisi
+   Deskripsi : Mencari status N di tabel TabA
+*/
+int FungsiTransisi(RELASI R, int IdxState, char IdxAlfa);
+/* Mengembalikan indeks status dimana hasil dari input alfabet, jika tidak ditemukan di TabR, mengembalikkan IdxUndef jika tidak ada pasangan status dan alfabet di tabel R
+   Prekondisi : R, IdxState, dan IdxAlfa terdefinisi
+*/
+boolean IsAlphaNStateValid(RELASI R, int IdxState, char IdxAlfa);
+/* Mengembalikkan true jika pasangan state dan alfabet ada di tabel R, dan false jika sebalikknya
+   Prekondisi : R, IdxState, dan IdxAlfa terdefinisi
 */
 
 #endif
