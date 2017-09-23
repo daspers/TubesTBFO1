@@ -1,7 +1,9 @@
+
 #ifndef DFA_H
 #define DFA_H
 
 #include "boolean.h"
+#include <stdio.h>
 
 #define IdxUndef -1
 #define MaxNArr 35
@@ -37,12 +39,12 @@ typedef struct{
 	int IdxA[50];
 	int Neff;
 	boolean ValidIn;
-} INPUT;
+}INPUT;
 
 typedef struct{
 	INPUT In[20];
 	int Neff;
-} ArrINPUT;
+}ArrINPUT;
 
 //Kelompok Konstruktor
 void MakeEmptyArrStatus(ArrSTATUS *TabS);
@@ -55,6 +57,8 @@ void MakeEmptyArrALPHA(ArrALPHA *TabA);
    F.S : TabA terdefinisi kosong
    deskripsi : membuat Tabel TabA kosong
 */
+void MakeEmptyArrINPUT(ArrINPUT *TabI);
+void MakeEmptyRELASI(RELASI *R);
 
 //Kelompok I/O
 void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart);
@@ -68,17 +72,17 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart);
    5) Membaca semua status final dari file eksternal dan mengubah boolean finalstate di TabS menjadi true
    6) Membaca semua fungsi transisi pada file eksternal
 */
-void BacaInputDFA(ArrINPUT *TabI);
+void BacaInputDFA(ArrALPHA TabA, RELASI R, ArrINPUT *TabI, int IdxStart);
 /* I.S. : TabI sembarang
    F.S. : TabI terdefinisi
    Proses : Membaca banyak input dan semua input DFA, dan menyimpannya ke tabel TabI
 */
-void TulisData(ArrSTATUS TabS, ArrALPHA TabA, RELASI R, int *IdxStart);
+void SkipLine(FILE *f);
+void TulisData(ArrSTATUS TabS, ArrALPHA TabA, RELASI R, int IdxStart);
 /* I.S. : TabS, TabA, R, start terdefinisi
-   F.S. : TabS, TabA, R, start terdefinisi
    Deskripsi : Menulis Alfabet, status, status mulai, status akhir, dan fungsi transisi ke layar
 */
-void TulisHasil(ArrINPUT TabI);
+void TulisHasil(ArrSTATUS TabS, ArrALPHA TabA, ArrINPUT TabI, RELASI R, int IdxStart);
 /* I.S. : TabI terdefinisi
    Deskripsi : Menulis ke file eksternal semua proses perpindahan status karena input
 */
@@ -105,11 +109,11 @@ int CariAlphabet(ArrALPHA TabA, char N[]);
    Prekondisi : TabA dan N terdefinisi
    Deskripsi : Mencari status N di tabel TabA
 */
-int FungsiTransisi(RELASI R, int IdxState, char IdxAlfa);
+int FungsiTransisi(RELASI R, int IdxState, int IdxAlfa);
 /* Mengembalikan indeks status dimana hasil dari input alfabet, jika tidak ditemukan di TabR, mengembalikkan IdxUndef jika tidak ada pasangan status dan alfabet di tabel R
    Prekondisi : R, IdxState, dan IdxAlfa terdefinisi
 */
-boolean IsAlphaNStateValid(RELASI R, int IdxState, char IdxAlfa);
+boolean IsAlphaNStateValid(RELASI R, int IdxState, int IdxAlfa);
 /* Mengembalikkan true jika pasangan state dan alfabet ada di tabel R, dan false jika sebalikknya
    Prekondisi : R, IdxState, dan IdxAlfa terdefinisi
 */
