@@ -1,4 +1,3 @@
-
 #include "boolean.h"
 #include "dfa.h"
 #include <stdio.h>
@@ -80,8 +79,7 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 		}
 		baca= (char) fgetc(f);
 	}
-	*IdxStart = CariState(TabS, STemp);
-	start->finalstate=false;
+	*IdxStart = CariState(*TabS, STemp);
 	//baca final state
 	do{
 		baca= (char) fgetc(f);
@@ -102,9 +100,9 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 	}
 	//baca relasi
 	baca= (char) fgetc(f);
-	SetStrNull((*R).inState[0].state);
-	SetStrNull((*R).Alphabet[0].alpha);
-	SetStrNull((*R).fState[0].state);
+	SetStrNull(STemp);
+	SetStrNull(ATemp);
+	SetStrNull(STemp2);
 	for(i=0,j=0,t=1;baca!=EOF&&i<1225;){
 		if(baca!=';'&&baca!=' '&&baca!='\n'){
 			if(t==1){
@@ -120,9 +118,9 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 		}
 		else if(baca!='\n'){
 			if(t>=3){
-				(*R).IdxInState[i] = CariState(TabS, STemp);
-				(*R).IdxAlphabet[i] = CariAlpha(TabA, ATemp);
-				(*R).IdxFState[i] = CariState(TabS, STemp2);
+				(*R).IdxInState[i] = CariState(*TabS, STemp);
+				(*R).IdxAlphabet[i] = CariAlphabet(*TabA, ATemp);
+				(*R).IdxFState[i] = CariState(*TabS, STemp2);
 				i++;
 				SetStrNull(STemp);
 				SetStrNull(ATemp);
@@ -157,7 +155,7 @@ void TulisData(ArrSTATUS TabS, ArrALPHA TabA, RELASI R, int IdxStart){
 	}
 	printf("Berikut fungsi trasisi :\n");
 	for(i=0;i<R.Neff;i++){
-		printf("%d) f(%s,%s)=%s\n", i+1, R.inState[i].state, R.Alphabet[i].alpha, R.fState[i].state);
+		printf("%d) f(%s,%s)=%s\n", i+1, TabS.S[R.IdxInState[i]].state, TabA.A[R.IdxAlphabet[i]].alpha, TabS.S[R.IdxFState[i]].state);
 	}
 }
 
