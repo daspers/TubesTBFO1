@@ -11,7 +11,7 @@ void MakeEmptyArrALPHA(ArrALPHA *TabA){
 	(*TabA).Neff=0;
 }
 
-void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, STATUS *start){
+void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 	//Kamus
 	char baca, STemp[MaxNStr], STemp2[MaxNStr], ATemp[MaxNStr];
 	int i,j,t;
@@ -68,18 +68,19 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, STATUS *start){
 		baca= (char) fgetc(f);
 	}while(baca!=' ');
 	baca= (char) fgetc(f);
-	SetStrNull(start->state);
+	SetStrNull(STemp);
 	for(i=0;baca!='\n';){
 		if(baca!=';'){
-			start->state[i]=baca;
+			STemp[i]=baca;
 			i++;
 		}
 		else{
 			if(i<10)
-				start->state[i]='\0';
+				STemp[i]='\0';
 		}
 		baca= (char) fgetc(f);
 	}
+	*IdxStart = CariState(TabS, STemp);
 	start->finalstate=false;
 	//baca final state
 	do{
@@ -138,7 +139,7 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, STATUS *start){
 	fclose(f);
 }
 
-void TulisData(ArrSTATUS TabS, ArrALPHA TabA, RELASI R, STATUS start){
+void TulisData(ArrSTATUS TabS, ArrALPHA TabA, RELASI R, int IdxStart){
 	int i=0;
 	printf("Ada %d Alfabet, yaitu :\n",TabA.Neff);
 	for(i=0;i<TabA.Neff;i++){
@@ -148,7 +149,7 @@ void TulisData(ArrSTATUS TabS, ArrALPHA TabA, RELASI R, STATUS start){
 	for(i=0;i<TabS.Neff;i++){
 		printf("%d - %s\n", i+1, TabS.S[i].state);
 	}
-	printf("Status awal : %s\n",start.state);
+	printf("Status awal : %s\n", TabS.S[IdxStart].state);
 	printf("Status akhir : \n");
 	for(i=0;i<TabS.Neff;i++){
 		if(TabS.S[i].finalstate)
