@@ -57,7 +57,7 @@ void MakeEmptyArrALPHA(ArrALPHA *TabA);
 */
 
 //Kelompok I/O
-void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, STATUS *start);
+void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart);
 /* I.S. : TabS, TabA, R, start sembarang
    F.S. : TabS, TabA, R, start terisi / terdefinisi
    Proses : 
