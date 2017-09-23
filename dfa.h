@@ -37,12 +37,12 @@ typedef struct{
 	int IdxA[50];
 	int Neff;
 	boolean ValidIn;
-}INPUT;
+} INPUT;
 
 typedef struct{
 	INPUT In[20];
 	int Neff;
-}ArrINPUT;
+} ArrINPUT;
 
 //Kelompok Konstruktor
 void MakeEmptyArrStatus(ArrSTATUS *TabS);
@@ -100,7 +100,7 @@ int CariState(ArrSTATUS TabS, char N[]);
    Prekondisi : TabS dan N terdefinisi
    Deskripsi : Mencari status N di tabel TabS
 */
-int CariAlphabet(ArrALPHABET TabA, char N[]);
+int CariAlphabet(ArrALPHA TabA, char N[]);
 /* Mengembalikan indeks dimana alfabet N berada di tabel TabA, jika tidak ditemukan akan mengembalikan IdxUndef
    Prekondisi : TabA dan N terdefinisi
    Deskripsi : Mencari status N di tabel TabA
