@@ -10,16 +10,28 @@ void MakeEmptyArrALPHA(ArrALPHA *TabA){
 	(*TabA).Neff=0;
 }
 
+void MakeEmptyArrINPUT(ArrINPUT *TabI){
+	(*TabI).Neff=0;
+}
+
+void MakeEmptyRELASI(RELASI *R){
+	(*R).Neff=0;
+}
+
 void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 	//Kamus
 	char baca, STemp[MaxNStr], STemp2[MaxNStr], ATemp[MaxNStr];
 	int i,j,t;
 	FILE *f;
 	//Algoritma
-	f=fopen("tes.txt", "r");
+	f=fopen("dfa.txt", "r");
 	MakeEmptyArrStatus(TabS);
 	//baca banyak states
 	baca= (char) fgetc(f);
+	while(baca=='#'){
+		SkipLine(f);
+		baca= (char) fgetc(f);
+	}
 	while(baca!=';'){
 		(*TabS).Neff=10*((*TabS).Neff)+baca-'0';
 		baca= (char) fgetc(f);
@@ -43,6 +55,10 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 	//baca banyak alphabet
 	MakeEmptyArrALPHA(TabA);
 	baca = (char) fgetc(f);
+	while(baca=='#'){
+		SkipLine(f);
+		baca= (char) fgetc(f);
+	}
 	while(baca!=';'){
 		(*TabA).Neff=10*((*TabA).Neff)+baca-'0';
 		baca= (char) fgetc(f);
@@ -65,6 +81,10 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 	//baca start state
 	do{
 		baca= (char) fgetc(f);
+		while(baca=='#'){
+			SkipLine(f);
+			baca= (char) fgetc(f);
+		}
 	}while(baca!=' ');
 	baca= (char) fgetc(f);
 	SetStrNull(STemp);
@@ -83,6 +103,10 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 	//baca final state
 	do{
 		baca= (char) fgetc(f);
+		while(baca=='#'){
+			SkipLine(f);
+			baca= (char) fgetc(f);
+		}
 	}while(baca!=' ');
 	baca= (char) fgetc(f);
 	SetStrNull(STemp);
@@ -100,9 +124,14 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 	}
 	//baca relasi
 	baca= (char) fgetc(f);
+	while(baca=='#'){
+		SkipLine(f);
+		baca= (char) fgetc(f);
+	}
 	SetStrNull(STemp);
 	SetStrNull(ATemp);
 	SetStrNull(STemp2);
+	MakeEmptyRELASI(R);
 	for(i=0,j=0,t=1;baca!=EOF&&i<1225;){
 		if(baca!=';'&&baca!=' '&&baca!='\n'){
 			if(t==1){
@@ -132,13 +161,89 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 			j=0;
 		}
 		baca= (char) fgetc(f);
+		while(baca=='#'){
+			SkipLine(f);
+			baca= (char) fgetc(f);
+		}
 	}
 	(*R).Neff=i;
 	fclose(f);
 }
 
+void BacaInputDFA(ArrALPHA TabA, RELASI R, ArrINPUT *TabI, int IdxStart){
+	int i,j,k,CurIdxS;
+	char baca,ATemp[MaxNStr];
+	FILE *f;
+	f = fopen("inputdfa.txt", "r");
+	//Baca banyak input
+	baca= (char) fgetc(f);
+	while(baca=='#'){
+		SkipLine(f);
+		baca= (char) fgetc(f);
+	}
+	MakeEmptyArrINPUT(TabI);
+	while(baca!='\n'){
+		if(baca!=';')
+			(*TabI).Neff=(*TabI).Neff*10+baca-'0';
+		baca= (char) fgetc(f);
+	}
+	//Baca Input
+	for(i=0;i<(*TabI).Neff;i++){
+		//Baca banyak input
+		baca= (char) fgetc(f);
+		while(baca=='#'){
+			SkipLine(f);
+			baca= (char) fgetc(f);
+		}
+		(*TabI).In[i].Neff=0;
+		do{
+			(*TabI).In[i].Neff=(*TabI).In[i].Neff*10+baca-'0';
+			baca= (char) fgetc(f);
+		}while(baca!=';');
+		
+		//Baca Input
+		baca= (char) fgetc(f);
+		SetStrNull(ATemp);
+		(*TabI).In[i].ValidIn=true;
+		CurIdxS = IdxStart;
+		for(j=0,k=0;baca!='\n';){
+			if(baca!=','&&baca!=';'){
+				ATemp[k]=baca;
+				k++;
+			}
+			else{
+				(*TabI).In[i].IdxA[j]=CariAlphabet(TabA,ATemp);
+				printf("%d, ",(*TabI).In[i].IdxA[j]);
+				printf("(%d)", (*TabI).In[i].ValidIn);
+				if((*TabI).In[i].ValidIn){
+					printf(":%d->", CurIdxS);
+					CurIdxS = FungsiTransisi(R, CurIdxS, (*TabI).In[i].IdxA[j]);
+					printf("%d:", CurIdxS);
+					if(CurIdxS==IdxUndef)
+						(*TabI).In[i].ValidIn=false;
+				}
+				SetStrNull(ATemp);
+				j++;
+				k=0;
+			}
+			baca= (char) fgetc(f);
+		}
+		printf("\n");
+	}
+	fclose(f);
+}
+
+void SkipLine(FILE *f){
+	char baca= (char) fgetc(f);
+	while(baca!='\n'){
+		baca= (char) fgetc(f);
+	}
+}
+
 void TulisData(ArrSTATUS TabS, ArrALPHA TabA, RELASI R, int IdxStart){
-	int i=0;
+	//Kamus
+	int i;
+	//Algoritma
 	printf("Ada %d Alfabet, yaitu :\n",TabA.Neff);
 	for(i=0;i<TabA.Neff;i++){
 		printf("%d - %s\n", i+1, TabA.A[i].alpha);
@@ -157,6 +262,37 @@ void TulisData(ArrSTATUS TabS, ArrALPHA TabA, RELASI R, int IdxStart){
 	for(i=0;i<R.Neff;i++){
 		printf("%d) f(%s,%s)=%s\n", i+1, TabS.S[R.IdxInState[i]].state, TabA.A[R.IdxAlphabet[i]].alpha, TabS.S[R.IdxFState[i]].state);
 	}
+}
+
+void TulisHasil(ArrSTATUS TabS, ArrALPHA TabA, ArrINPUT TabI, RELASI R, int IdxStart){
+	//Kamus
+	int i,j,CurIdxS;
+	FILE *f;
+	//Algoritma
+	f=fopen("outputdfa.txt","w");
+	for(i=0;i<TabI.Neff;i++){
+		fprintf(f,"Input ke-%d :\n",i+1);
+		if(TabI.In[i].ValidIn){
+			CurIdxS = IdxStart;
+			fprintf(f,"%s", TabS.S[CurIdxS].state);
+			for(j=0;j<TabI.In[i].Neff;j++){
+				fprintf(f,"->");
+				CurIdxS = FungsiTransisi(R, CurIdxS, TabI.In[i].IdxA[j]);
+				fprintf(f,"%s", TabS.S[CurIdxS].state);
+			}
+			fprintf(f, "\n");
+			if(TabS.S[CurIdxS].finalstate)
+				fprintf(f, "Input Diterima\n");
+			else
+				fprintf(f, "Input Ditolak\n");
+		}
+		else{
+			fprintf(f, "Illegal Input\n");
+		}
+		if(i<TabI.Neff-1)
+			fprintf(f,"\n");
+	}
+	fclose(f);
 }
 
 void SetStrNull(char *s){
@@ -178,7 +314,7 @@ int CariState(ArrSTATUS TabS, char N[]){
 int CariAlphabet(ArrALPHA TabA, char N[]){
 	int i;
 	for(i=0;i<TabA.Neff;i++){
-		if(IsStrEq(TabA.A[i].state,N))
+		if(IsStrEq(TabA.A[i].alpha,N))
 			return i;
 	}
 	return IdxUndef;
@@ -192,15 +328,15 @@ boolean IsStrEq(char A[], char B[]){
 	return A[i]==B[i];
 }
 
-int FungsiTransisi(RELASI R, int IdxState, char IdxAlfa){
+int FungsiTransisi(RELASI R, int IdxState, int IdxAlfa){
 	int i;
 	for(i=0;i<R.Neff;i++){
 		if(R.IdxInState[i]==IdxState && R.IdxAlphabet[i] == IdxAlfa)
-			return i;
+			return R.IdxFState[i];
 	}
 	return IdxUndef;
 }
 
-boolean IsAlphaNStateValid(RELASI R, int IdxState, char IdxAlfa){
+boolean IsAlphaNStateValid(RELASI R, int IdxState, int IdxAlfa){
 	return FungsiTransisi(R,IdxState,IdxAlfa) != IdxUndef;
 }
