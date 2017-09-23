@@ -89,7 +89,7 @@ void SetStrNull(char *s);
    F.S. : string S terdefinisi kosong/Null
    Deskripsi : mengisi string S dengan Null
 */
-boolean CompStatus (char A[], char B[]);
+boolean IsStrEq(char A[], char B[]);
 /* Mengembalikan True jika string A dan string B sama, dan false jika tidak sama
    Prekondisi : A dan B terdefinisi
 */
