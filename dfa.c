@@ -169,7 +169,7 @@ void SetStrNull(char *s){
 int CariState(ArrSTATUS TabS, char N[]){
 	int i;
 	for(i=0;i<TabS.Neff;i++){
-		if(CompStatus(TabS.S[i].state,N))
+		if(IsStrEq(TabS.S[i].state,N))
 			return i;
 	}
 	return IdxUndef;
@@ -178,16 +178,29 @@ int CariState(ArrSTATUS TabS, char N[]){
 int CariAlphabet(ArrAlphabet TabA, char N[]){
 	int i;
 	for(i=0;i<TabA.Neff;i++){
-		if(CompStatus(TabA.A[i].state,N))
+		if(IsStrEq(TabA.A[i].state,N))
 			return i;
 	}
 	return IdxUndef;
 }
 
-boolean CompStatus(char A[], char B[]){
+boolean IsStrEq(char A[], char B[]){
 	int i;
 	for(i=0;i<MaxNStr&&A[i]!='\0'&&B[i]!='\0';i++)
 		if(A[i]!=B[i])
 			return false;
 	return A[i]==B[i];
+}
+
+int FungsiTransisi(RELASI R, int IdxState, char IdxAlfa){
+	int i;
+	for(i=0;i<R.Neff;i++){
+		if(R.IdxInState[i]==IdxState && R.IdxAlphabet[i] == IdxAlfa)
+			return i;
+	}
+	return IdxUndef;
+}
+
+boolean IsAlphaNStateValid(RELASI R, int IdxState, char IdxAlfa){
+	return FungsiTransisi(R,IdxState,IdxAlfa) != IdxUndef;
 }
