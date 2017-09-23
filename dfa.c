@@ -145,7 +145,7 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 			}
 			j++;
 		}
-		else if(baca!='\n'){
+		else{
 			if(t>=3){
 				(*R).IdxInState[i] = CariState(*TabS, STemp);
 				(*R).IdxAlphabet[i] = CariAlphabet(*TabA, ATemp);
@@ -161,9 +161,12 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 			j=0;
 		}
 		baca= (char) fgetc(f);
-		while(baca=='#'){
-			SkipLine(f);
+		if(baca=='\n'){
 			baca= (char) fgetc(f);
+			while(baca=='#'){
+				SkipLine(f);
+				baca= (char) fgetc(f);
+			}
 		}
 	}
 	(*R).Neff=i;
@@ -189,7 +192,7 @@ void BacaInputDFA(ArrALPHA TabA, RELASI R, ArrINPUT *TabI, int IdxStart){
 	}
 	//Baca Input
 	for(i=0;i<(*TabI).Neff;i++){
-		//Baca banyak input
+		//Baca banyak alfabet input
 		baca= (char) fgetc(f);
 		while(baca=='#'){
 			SkipLine(f);
@@ -201,7 +204,7 @@ void BacaInputDFA(ArrALPHA TabA, RELASI R, ArrINPUT *TabI, int IdxStart){
 			baca= (char) fgetc(f);
 		}while(baca!=';');
 		
-		//Baca Input
+		//Baca alfabet input
 		baca= (char) fgetc(f);
 		SetStrNull(ATemp);
 		(*TabI).In[i].ValidIn=true;
@@ -213,12 +216,8 @@ void BacaInputDFA(ArrALPHA TabA, RELASI R, ArrINPUT *TabI, int IdxStart){
 			}
 			else{
 				(*TabI).In[i].IdxA[j]=CariAlphabet(TabA,ATemp);
-				printf("%d, ",(*TabI).In[i].IdxA[j]);
-				printf("(%d)", (*TabI).In[i].ValidIn);
 				if((*TabI).In[i].ValidIn){
-					printf(":%d->", CurIdxS);
 					CurIdxS = FungsiTransisi(R, CurIdxS, (*TabI).In[i].IdxA[j]);
-					printf("%d:", CurIdxS);
 					if(CurIdxS==IdxUndef)
 						(*TabI).In[i].ValidIn=false;
 				}
@@ -228,7 +227,6 @@ void BacaInputDFA(ArrALPHA TabA, RELASI R, ArrINPUT *TabI, int IdxStart){
 			}
 			baca= (char) fgetc(f);
 		}
-		printf("\n");
 	}
 	fclose(f);
 }
