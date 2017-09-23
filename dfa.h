@@ -29,7 +29,7 @@ typedef struct{
 typedef struct{
 	int IdxInState[MaxNArr*MaxNArr];
 	int IdxAlphabet[MaxNArr*MaxNArr];
-	int IntFState[MaxNArr*MaxNArr];
+	int IdxFState[MaxNArr*MaxNArr];
 	int Neff;
 } RELASI;
 
