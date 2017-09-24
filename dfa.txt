@@ -1,4 +1,35 @@
-;;
-8;socket,bind,listen,read,wait,close,connect,abort;
-> socket;
-* abort,close;
+#DFA
+#status
+#aturan: satu baris
+#format: banyak_status;status1,status2,..,statusN;
+4;S1,S2,S3,S4;
+#Alfabet
+#aturan: satu baris
+#format: banyak_alfabet;alfabet1,alfabet2,..,alfabetN;
+3;a,b,c;
+#Status awal
+#aturan: satu baris
+#format: diawali dengan karakter '>' dan diakhiri ';'
+#format: setelah karakter '>' ada tepat sebuah ' ' (spasi) lalu diisi satu buah status awal
+> S1;
+#Status awal
+#aturan: satu baris
+#format: diawali dengan karakter '*' dan diakhiri ';'
+#format: setelah karakter '*' ada tepat sebuah ' ' (spasi) lalu diisi status akhir yang banyaknya antara 1 hingga banyak_status
+#format: jika status lebih dari 1, dipisahkan dengan karakter ','
+* S4;
+#Fungsi transisi
+#format: bisa lebih dari satu baris, namun tidak lebih dari banyak_status*banyak_alfabet
+#format: untuk tiap baris, berformat status_sekarang alfabet_input status_selanjutnya yang dipisahkan oleh ' '(spasi) dan diakhiri dengan karakter ';'
+S1 a S3;
+S1 b S2;
+S1 c S1;
+S2 a S4;
+S2 b S2;
+S2 c S2;
+S3 a S3;
+S3 b S4;
+S3 c S3;
+S4 a S4;
+S4 b S4;
+S4 c S4;
