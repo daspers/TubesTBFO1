@@ -211,7 +211,7 @@ void BacaInputDFA(ArrALPHA TabA, RELASI R, ArrINPUT *TabI, int IdxStart){
 		SetStrNull(ATemp);
 		(*TabI).In[i].ValidIn=true;
 		CurIdxS = IdxStart;
-		for(j=0,k=0;baca!='\n';){
+		for(j=0,k=0;baca!='\n'&&j<(*TabI).In[i].Neff;){
 			if(baca!=','&&baca!=';'){
 				ATemp[k]=baca;
 				k++;
@@ -229,6 +229,8 @@ void BacaInputDFA(ArrALPHA TabA, RELASI R, ArrINPUT *TabI, int IdxStart){
 			}
 			baca= (char) fgetc(f);
 		}
+		if((*TabI).In[i].Neff==0)
+			baca= (char) fgetc(f);
 	}
 	fclose(f);
 }
