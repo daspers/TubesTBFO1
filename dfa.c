@@ -11,7 +11,11 @@ void MakeEmptyArrALPHA(ArrALPHA *TabA){
 }
 
 void MakeEmptyArrINPUT(ArrINPUT *TabI){
+	int i;
 	(*TabI).Neff=0;
+	for(i=0;i<MaxNIn;i++){
+		(*TabI).In[i].Neff = 0;	
+	}
 }
 
 void MakeEmptyRELASI(RELASI *R){
