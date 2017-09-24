@@ -6,8 +6,9 @@
 #include <stdio.h>
 
 #define IdxUndef -1
-#define MaxNArr 35
+#define MaxNArr 50
 #define MaxNStr 10
+#define MaxNIn 20
 
 typedef struct{
 	char state[MaxNStr];
@@ -36,13 +37,13 @@ typedef struct{
 } RELASI;
 
 typedef struct{
-	int IdxA[50];
+	int IdxA[2*MaxNArr];
 	int Neff;
 	boolean ValidIn;
 }INPUT;
 
 typedef struct{
-	INPUT In[20];
+	INPUT In[MaxNIn];
 	int Neff;
 }ArrINPUT;
 
