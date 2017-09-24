@@ -9,6 +9,7 @@
 #define MaxNArr 50
 #define MaxNStr 10
 #define MaxNIn 20
+#define ManNAlphaIn 200
 
 typedef struct{
 	char state[MaxNStr];
@@ -37,7 +38,7 @@ typedef struct{
 } RELASI;
 
 typedef struct{
-	int IdxA[2*MaxNArr];
+	int IdxA[MaxNAlphaIn];
 	int Neff;
 	boolean ValidIn;
 }INPUT;
