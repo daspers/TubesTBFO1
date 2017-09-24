@@ -202,12 +202,10 @@ void BacaInputDFA(ArrALPHA TabA, RELASI R, ArrINPUT *TabI, int IdxStart){
 			SkipLine(f);
 			baca= (char) fgetc(f);
 		}
-		(*TabI).In[i].Neff=0;
 		do{
 			(*TabI).In[i].Neff=(*TabI).In[i].Neff*10+baca-'0';
 			baca= (char) fgetc(f);
 		}while(baca!=';');
-		
 		//Baca alfabet input
 		baca= (char) fgetc(f);
 		SetStrNull(ATemp);
