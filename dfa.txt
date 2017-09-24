@@ -6,7 +6,7 @@
 #Alfabet
 #aturan: satu baris
 #format: banyak_alfabet;alfabet1,alfabet2,..,alfabetN;
-3;a,b,c;
+13;OpenS,OpenC,Bind,Listen,Accept,Connect,ReadS,WriteS,ReadC,WriteC,CloseS,CloseC;
 #Status awal
 #aturan: satu baris
 #format: diawali dengan karakter '>' dan diakhiri ';'
