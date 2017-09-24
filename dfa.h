@@ -48,17 +48,25 @@ typedef struct{
 
 //Kelompok Konstruktor
 void MakeEmptyArrStatus(ArrSTATUS *TabS);
-/* I.S : TabS sembarang
-   F.S : TabS terdefinisi kosong
+/* I.S. : TabS sembarang
+   F.S. : TabS terdefinisi kosong
    deskripsi : membuat Tabel TabS kosong
 */
 void MakeEmptyArrALPHA(ArrALPHA *TabA);
-/* I.S : TabA sembarang
-   F.S : TabA terdefinisi kosong
+/* I.S. : TabA sembarang
+   F.S. : TabA terdefinisi kosong
    deskripsi : membuat Tabel TabA kosong
 */
 void MakeEmptyArrINPUT(ArrINPUT *TabI);
+/* I.S. : TabI sembarang
+   F.S. : TabI terdefinisi kosong
+   Deskripsi : membuat tabel TabI kosong
+*/
 void MakeEmptyRELASI(RELASI *R);
+/* I.S. : R sembarang
+   F.S. : R terdefinisi kosong
+   Deskripsi : membuat tabel R kosong
+*/
 
 //Kelompok I/O
 void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart);
@@ -75,16 +83,29 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart);
 void BacaInputDFA(ArrALPHA TabA, RELASI R, ArrINPUT *TabI, int IdxStart);
 /* I.S. : TabI sembarang
    F.S. : TabI terdefinisi
-   Proses : Membaca banyak input dan semua input DFA, dan menyimpannya ke tabel TabI
+   Proses :
+   1) Membaca banyak input DFA lalu menyinpannya ke TabI.Neff
+   2) Membaca semua input DFA : membaca banyak alfabet input lalu membaca alfabet-alfabet input dan disimpan ke TabI
+   3) Untuk setiap input, di cek apakah input tersebut legal apa tidak
+      - Input dianggap illegal jika ada input alfabet pada suatu states namun tidak ada fungsi transisinya
 */
 void SkipLine(FILE *f);
+/* I.S. : f terdefinisi
+   F.S. : f terdefinisi
+   Proses : membaca file hingga karakter pertama baris berikutnya
+*/
 void TulisData(ArrSTATUS TabS, ArrALPHA TabA, RELASI R, int IdxStart);
 /* I.S. : TabS, TabA, R, start terdefinisi
    Deskripsi : Menulis Alfabet, status, status mulai, status akhir, dan fungsi transisi ke layar
 */
 void TulisHasil(ArrSTATUS TabS, ArrALPHA TabA, ArrINPUT TabI, RELASI R, int IdxStart);
 /* I.S. : TabI terdefinisi
-   Deskripsi : Menulis ke file eksternal semua proses perpindahan status karena input
+   Deskripsi : Menulis ke file eksternal "outputdfa.txt" semua proses perpindahan status karena input
+   Proses :
+   1) Jika input merupakan input illegal, maka akan tertulis "Illegal Input" di file external
+   2) Jika input legal, maka akan tertulis setiap status perpindahannya ke file external
+      - Jika status terakhir merupakan 'Final State', maka akan ditulis "Input diterima" ke file external
+      - Jika sebalikknya, akan ditulis "Input di tolak" ke file external
 */
 
 //Kelompok manipulasi string
