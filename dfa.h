@@ -6,7 +6,7 @@
 
 #define IdxUndef -1
 #define MaxNArr 50
-#define MaxNStr 10
+#define MaxNStr 20
 #define MaxNIn 20
 #define ManNAlphaIn 200
 
@@ -37,7 +37,7 @@ typedef struct{
 } RELASI;
 
 typedef struct{
-	int IdxA[MaxNAlphaIn];
+	int IdxA[ManNAlphaIn];
 	int Neff;
 	boolean ValidIn;
 }INPUT;
@@ -109,7 +109,7 @@ void TulisHasil(ArrSTATUS TabS, ArrALPHA TabA, ArrINPUT TabI, RELASI R, int IdxS
       - Jika sebalikknya, akan ditulis "Input di tolak" ke file external
 */
 
-//Kelompok manipulasi string
+//Kelompok Manipulasi String
 void SetStrNull(char *s);
 /* I.S. : string S sembarang
    F.S. : string S terdefinisi kosong/Null
