@@ -2,7 +2,7 @@
 #status
 #aturan: satu baris
 #format: banyak_status;status1,status2,..,statusN;
-4;initial,s_socket,c_socket,both_socket,s_socket_binded,both_socket_binded,s_socket_listening,both_socket_listening,connected,accepted,sending,blocking,closed;
+8;initial,s_socket,c_socket,both_socket,s_socket_binded,both_socket_binded,s_socket_listening,both_socket_listening,connected,accepted,sending,blocking,closed;
 #Alfabet
 #aturan: satu baris
 #format: banyak_alfabet;alfabet1,alfabet2,..,alfabetN;
@@ -21,8 +21,8 @@
 #Fungsi transisi
 #format: bisa lebih dari satu baris, namun tidak lebih dari banyak_status*banyak_alfabet
 #format: untuk tiap baris, berformat status_sekarang alfabet_input status_selanjutnya yang dipisahkan oleh ' '(spasi) dan diakhiri dengan karakter ';'
-S1 a S3;
-S1 b S2;
+initial OpenS s_socket;
+initial OpenC c_socket;
 S1 c S1;
 S2 a S4;
 S2 b S2;
