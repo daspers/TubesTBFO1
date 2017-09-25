@@ -2,7 +2,7 @@
 #status
 #aturan: satu baris
 #format: banyak_status;status1,status2,..,statusN;
-4;initial,s_socket,c_socket,both_socket,s_socket_binded,both_socket_binded,s_socket_listening,both_socket_listening,both_connected,s_accepted,;
+4;initial,s_socket,c_socket,both_socket,s_socket_binded,both_socket_binded,s_socket_listening,both_socket_listening,connected,accepted,sending,blocking,closed;
 #Alfabet
 #aturan: satu baris
 #format: banyak_alfabet;alfabet1,alfabet2,..,alfabetN;
