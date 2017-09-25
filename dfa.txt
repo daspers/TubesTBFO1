@@ -6,7 +6,7 @@
 #Alfabet
 #aturan: satu baris
 #format: banyak_alfabet;alfabet1,alfabet2,..,alfabetN;
-15;OpenS,OpenC,Bind,Listen,Accept,Connect,Request,Receive,ReadS,WriteS,ReadC,WriteC,CloseS,CloseC;
+15;OpenS,OpenC,Bind,Listen,Accept,Connect,Request,Receive,ReadS,WriteS,ReadC,WriteC,Wait,Unblocking,Close;
 #Status awal
 #aturan: satu baris
 #format: diawali dengan karakter '>' dan diakhiri ';'
@@ -38,16 +38,22 @@ s_socket_binded Listen s_socket_listening;
 both_socket_binded Listen both_socket_listening;
 s_socket_listening Listen s_socket_listening;
 both_socket_listening Listen both_socket_listening;
-
-
-
-
-
-
-
-
-S3 b S4;
-S3 c S3;
-S4 a S4;
-S4 b S4;
-S4 c S4;
+both_socket_listening Connect connected;
+connected Accept accepted;
+accepted WriteS sending;
+sending ReadS accepted;
+accepted ReadC accepted;
+accepted WriteC accepted;
+sending Wait blocking;
+blocking Unblocking accepted;
+s_socket Close closed;
+c_socket Close closed;
+both_socket Close closed;
+s_socket_binded Close closed;
+both_socket_binded Close closed;
+s_socket_listening Close closed;
+both_socket_listening Close closed;
+connected Close closed;
+accepted Close closed;
+sending Close closed;
+blocking Close closed;
