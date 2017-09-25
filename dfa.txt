@@ -23,11 +23,28 @@
 #format: untuk tiap baris, berformat status_sekarang alfabet_input status_selanjutnya yang dipisahkan oleh ' '(spasi) dan diakhiri dengan karakter ';'
 initial OpenS s_socket;
 initial OpenC c_socket;
-S1 c S1;
-S2 a S4;
-S2 b S2;
-S2 c S2;
-S3 a S3;
+c_socket OpenC c_socket;
+s_socket OpenC both_socket;
+s_socket_binded OpenC c_socket;
+s_socket_listening OpenC c_socket;
+c_socket OpenS both_socket;
+s_socket OpenS s_socket;
+s_socket bind s_socket_binded;
+both_socket bind both_socket_binded;
+both_socket OpenS both_socket;
+both_socket OpenC both_socket;
+both_socket_binded bind both_socket_binded;
+
+
+
+
+
+
+
+
+
+
+
 S3 b S4;
 S3 c S3;
 S4 a S4;
