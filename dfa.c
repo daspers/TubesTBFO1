@@ -105,10 +105,6 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 			STemp[i]=baca;
 			i++;
 		}
-		else{
-			if(i<10)
-				STemp[i]='\0';
-		}
 		baca= (char) fgetc(f);
 	}
 	*IdxStart = CariState(*TabS, STemp);
