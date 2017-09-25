@@ -140,7 +140,7 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 	SetStrNull(ATemp);
 	SetStrNull(STemp2);
 	MakeEmptyRELASI(R);
-	for(i=0,j=0,t=1;baca!=EOF&&i<1225;){
+	for(i=0,j=0,t=1;baca!=EOF&&i<MaxNArr*MaxNArr;){
 		if(baca!=';'&&baca!=' '&&baca!='\n'){
 			if(t==1){
 				STemp[j]=baca;
