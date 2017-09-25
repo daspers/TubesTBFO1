@@ -2,16 +2,21 @@
 #include "dfa.h"
 #include <stdio.h>
 
+/* Kelompok Konstruktor */
 void MakeEmptyArrStatus(ArrSTATUS *TabS){
+	/* Algoritma */
 	(*TabS).Neff=0;
 }
 
 void MakeEmptyArrALPHA(ArrALPHA *TabA){
+	/* Algoritma */
 	(*TabA).Neff=0;
 }
 
 void MakeEmptyArrINPUT(ArrINPUT *TabI){
+	/* Kamus */
 	int i;
+	/* Algoritma */
 	(*TabI).Neff=0;
 	for(i=0;i<MaxNIn;i++){
 		(*TabI).In[i].Neff = 0;	
@@ -19,18 +24,21 @@ void MakeEmptyArrINPUT(ArrINPUT *TabI){
 }
 
 void MakeEmptyRELASI(RELASI *R){
+	/* Algoritma */
 	(*R).Neff=0;
 }
 
+/* Kelompok I/O */
 void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
-	//Kamus
+	/* Kamus */
 	char baca, STemp[MaxNStr], STemp2[MaxNStr], ATemp[MaxNStr];
 	int i,j,t;
 	FILE *f;
-	//Algoritma
+	/* Algoritma */
+	//Buka file external "dfa.txt" untuk dibaca
 	f=fopen("dfa.txt", "r");
+	//Baca banyak states
 	MakeEmptyArrStatus(TabS);
-	//baca banyak states
 	baca= (char) fgetc(f);
 	while(baca=='#'){
 		SkipLine(f);
@@ -40,7 +48,7 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 		(*TabS).Neff=10*((*TabS).Neff)+baca-'0';
 		baca= (char) fgetc(f);
 	}
-	//baca semua states
+	//Baca semua states
 	baca= (char) fgetc(f);
 	SetStrNull((*TabS).S[0].state);
 	for(i=0,j=0;baca!='\n';){
@@ -56,7 +64,7 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 		}
 		baca= (char) fgetc(f);
 	}
-	//baca banyak alphabet
+	//Baca banyak alphabet
 	MakeEmptyArrALPHA(TabA);
 	baca = (char) fgetc(f);
 	while(baca=='#'){
@@ -67,7 +75,7 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 		(*TabA).Neff=10*((*TabA).Neff)+baca-'0';
 		baca= (char) fgetc(f);
 	}
-	//baca semua alphabet
+	//Baca semua alphabet
 	baca= (char) fgetc(f);
 	SetStrNull((*TabA).A[0].alpha);
 	for(i=0,j=0;baca!='\n';){
@@ -82,7 +90,7 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 		}
 		baca= (char) fgetc(f);
 	}
-	//baca start state
+	//Baca start state
 	do{
 		baca= (char) fgetc(f);
 		while(baca=='#'){
@@ -104,7 +112,7 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 		baca= (char) fgetc(f);
 	}
 	*IdxStart = CariState(*TabS, STemp);
-	//baca final state
+	//Baca final state
 	do{
 		baca= (char) fgetc(f);
 		while(baca=='#'){
@@ -126,7 +134,7 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 		}
 		baca= (char) fgetc(f);
 	}
-	//baca relasi
+	//Baca relasi
 	baca= (char) fgetc(f);
 	while(baca=='#'){
 		SkipLine(f);
@@ -174,13 +182,17 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 		}
 	}
 	(*R).Neff=i;
+	//Tutup file external "dfa.txt"
 	fclose(f);
 }
 
 void BacaInputDFA(ArrALPHA TabA, RELASI R, ArrINPUT *TabI, int IdxStart){
+	/* Kamus */
 	int i,j,k,CurIdxS;
 	char baca,ATemp[MaxNStr];
 	FILE *f;
+	/* Algoritma */
+	//Buka file external "inputdfa.txt" untuk dibaca
 	f = fopen("inputdfa.txt", "r");
 	//Baca banyak input
 	baca= (char) fgetc(f);
@@ -232,34 +244,43 @@ void BacaInputDFA(ArrALPHA TabA, RELASI R, ArrINPUT *TabI, int IdxStart){
 		if((*TabI).In[i].Neff==0)
 			baca= (char) fgetc(f);
 	}
+	//Tutup file external "inputdfa.txt"
 	fclose(f);
 }
 
 void SkipLine(FILE *f){
-	char baca= (char) fgetc(f);
+	/* Kamus */
+	char baca;
+	/* Algoritma */
+	baca=(char) fgetc(f);
 	while(baca!='\n'){
 		baca= (char) fgetc(f);
 	}
 }
 
 void TulisData(ArrSTATUS TabS, ArrALPHA TabA, RELASI R, int IdxStart){
-	//Kamus
+	/* Kamus */
 	int i;
-	//Algoritma
+	/* Algoritma */
+	//Menulis layar semua alfabet
 	printf("Ada %d Alfabet, yaitu :\n",TabA.Neff);
 	for(i=0;i<TabA.Neff;i++){
 		printf("%d - %s\n", i+1, TabA.A[i].alpha);
 	}
+	//Menulis layar semua status
 	printf("Ada %d Status, yaitu :\n",TabS.Neff);
 	for(i=0;i<TabS.Neff;i++){
 		printf("%d - %s\n", i+1, TabS.S[i].state);
 	}
+	//Menulis layar status awal DFA
 	printf("Status awal : %s\n", TabS.S[IdxStart].state);
+	//Menulis layar semua status akhir dari DFA
 	printf("Status akhir : \n");
 	for(i=0;i<TabS.Neff;i++){
 		if(TabS.S[i].finalstate)
 			printf("%s\n", TabS.S[i].state);
 	}
+	//Menulis layar semua status fungsi transisi dari DFA
 	printf("Berikut fungsi trasisi :\n");
 	for(i=0;i<R.Neff;i++){
 		printf("%d) f(%s,%s)=%s\n", i+1, TabS.S[R.IdxInState[i]].state, TabA.A[R.IdxAlphabet[i]].alpha, TabS.S[R.IdxFState[i]].state);
@@ -267,11 +288,13 @@ void TulisData(ArrSTATUS TabS, ArrALPHA TabA, RELASI R, int IdxStart){
 }
 
 void TulisHasil(ArrSTATUS TabS, ArrALPHA TabA, ArrINPUT TabI, RELASI R, int IdxStart){
-	//Kamus
+	/* Kamus */
 	int i,j,CurIdxS;
 	FILE *f;
-	//Algoritma
+	/* Algoritma */
+	//Buka File "outputdfa.txt" untuk ditulis
 	f=fopen("outputdfa.txt","w");
+	//Tulis output langkah-langkah ke file external
 	for(i=0;i<TabI.Neff;i++){
 		fprintf(f,"Input ke-%d :\n",i+1);
 		if(TabI.In[i].ValidIn){
@@ -294,51 +317,68 @@ void TulisHasil(ArrSTATUS TabS, ArrALPHA TabA, ArrINPUT TabI, RELASI R, int IdxS
 		if(i<TabI.Neff-1)
 			fprintf(f,"\n");
 	}
+	//Tutup file "outputdfa.txt"
 	fclose(f);
 }
 
+/* Kelompok Manipulasi String */
 void SetStrNull(char *s){
+	/* Kamus */
 	int i;
+	/* Algoritma */
+	//Menge-set untuk setiap char dari array jadi '\0' atau null
 	for(i=0;i<MaxNStr;i++){
 		s[i]='\0';
 	}
 }
 
-int CariState(ArrSTATUS TabS, char N[]){
+boolean IsStrEq(char A[], char B[]){
+	/* Kamus */
 	int i;
+	/* Algoritma */
+	for(i=0;i<MaxNStr-1&&A[i]!='\0'&&B[i]!='\0';i++)
+		if(A[i]!=B[i])
+			return false;
+	//Untuk setiap i<MaxNStr-1, A[i] = B[i]; atau B[i]='\0' atau A[i]='\0' 
+	return A[i]==B[i]; 
+}
+
+/* Kelompok DFA */
+int CariState(ArrSTATUS TabS, char N[]){
+	/* Kamus */
+	int i;
+	/* Algoritma */
 	for(i=0;i<TabS.Neff;i++){
 		if(IsStrEq(TabS.S[i].state,N))
 			return i;
 	}
-	return IdxUndef;
+	return IdxUndef; //Jika tidak ditemukan status N
 }
 
 int CariAlphabet(ArrALPHA TabA, char N[]){
+	/* Kamus */
 	int i;
+	/* Algoritma */
 	for(i=0;i<TabA.Neff;i++){
 		if(IsStrEq(TabA.A[i].alpha,N))
 			return i;
 	}
-	return IdxUndef;
-}
-
-boolean IsStrEq(char A[], char B[]){
-	int i;
-	for(i=0;i<MaxNStr&&A[i]!='\0'&&B[i]!='\0';i++)
-		if(A[i]!=B[i])
-			return false;
-	return A[i]==B[i];
+	return IdxUndef; //Jika tidak ditemukan alfabet N
 }
 
 int FungsiTransisi(RELASI R, int IdxState, int IdxAlfa){
+	/* Kamus */
 	int i;
+	/* Algoritma */
 	for(i=0;i<R.Neff;i++){
 		if(R.IdxInState[i]==IdxState && R.IdxAlphabet[i] == IdxAlfa)
 			return R.IdxFState[i];
 	}
+	//Tidak ditemukan pasangan input state State[IdxState] dan alfabet Alpha[IdxAlfa] di tabel Relasi R
 	return IdxUndef;
 }
 
 boolean IsAlphaNStateValid(RELASI R, int IdxState, int IdxAlfa){
+	/* Algoritma */
 	return FungsiTransisi(R,IdxState,IdxAlfa) != IdxUndef;
 }
