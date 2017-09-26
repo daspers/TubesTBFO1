@@ -12,7 +12,7 @@
 #format: diawali dengan karakter '>' dan diakhiri ';'
 #format: setelah karakter '>' ada tepat sebuah ' ' (spasi) lalu diisi satu buah status awal
 > initial;
-#Status awal
+#Status akhir
 #aturan: satu baris
 #format: diawali dengan karakter '*' dan diakhiri ';'
 #format: setelah karakter '*' ada tepat sebuah ' ' (spasi) lalu diisi status akhir yang banyaknya antara 1 hingga banyak_status
