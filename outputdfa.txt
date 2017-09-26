@@ -1,0 +1,29 @@
+Input ke-1 :
+initial
+Input Ditolak
+
+Input ke-2 :
+Illegal Input
+
+Input ke-3 :
+initial->s_socket->both_socket
+Input Diterima
+
+Input ke-4 :
+Illegal Input
+
+Input ke-5 :
+initial->s_socket->both_socket->both_socket_binded->both_socket_binded->both_socket_listening->connected->accepted->sending->accepted->closed
+Input Diterima
+
+Input ke-6 :
+initial->s_socket->s_socket->s_socket->s_socket->s_socket
+Input Diterima
+
+Input ke-7 :
+initial->s_socket->s_socket_binded->s_socket_listening->s_socket_listening->both_socket_listening->connected
+Input Diterima
+
+Input ke-8 :
+initial->s_socket->both_socket->both_socket_binded->both_socket_listening->connected->accepted->accepted->sending->accepted->accepted->sending->blocking->accepted->sending->closed
+Input Diterima
