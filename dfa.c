@@ -50,7 +50,7 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 	}
 	//Baca semua states
 	baca= (char) fgetc(f);
-	SetStrNull((*TabS).S[0].state);
+	SetStrNul((*TabS).S[0].state);
 	for(i=0,j=0;baca!='\n';){
 		if(baca!=';'&&baca!=','){
 			(*TabS).S[i].state[j]=baca;
@@ -59,7 +59,7 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 		else{
 			(*TabS).S[i].finalstate=false;
 			i++;
-			SetStrNull((*TabS).S[i].state);
+			SetStrNul((*TabS).S[i].state);
 			j=0;
 		}
 		baca= (char) fgetc(f);
@@ -77,7 +77,7 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 	}
 	//Baca semua alphabet
 	baca= (char) fgetc(f);
-	SetStrNull((*TabA).A[0].alpha);
+	SetStrNul((*TabA).A[0].alpha);
 	for(i=0,j=0;baca!='\n';){
 		if(baca!=';'&&baca!=','){
 			(*TabA).A[i].alpha[j]=baca;
@@ -85,7 +85,7 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 		}
 		else{
 			i++;
-			SetStrNull((*TabA).A[i].alpha);
+			SetStrNul((*TabA).A[i].alpha);
 			j=0;
 		}
 		baca= (char) fgetc(f);
@@ -99,7 +99,7 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 		}
 	}while(baca!=' ');
 	baca= (char) fgetc(f);
-	SetStrNull(STemp);
+	SetStrNul(STemp);
 	for(i=0;baca!='\n';){
 		if(baca!=';'){
 			STemp[i]=baca;
@@ -117,7 +117,7 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 		}
 	}while(baca!=' ');
 	baca= (char) fgetc(f);
-	SetStrNull(STemp);
+	SetStrNul(STemp);
 	for(i=0;baca!='\n';){
 		if(baca!=';'&&baca!=','){
 			STemp[i]=baca;
@@ -125,7 +125,7 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 		}
 		else{
 			(*TabS).S[CariState(*TabS, STemp)].finalstate=true;
-			SetStrNull(STemp);
+			SetStrNul(STemp);
 			i=0;
 		}
 		baca= (char) fgetc(f);
@@ -136,9 +136,9 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 		SkipLine(f);
 		baca= (char) fgetc(f);
 	}
-	SetStrNull(STemp);
-	SetStrNull(ATemp);
-	SetStrNull(STemp2);
+	SetStrNul(STemp);
+	SetStrNul(ATemp);
+	SetStrNul(STemp2);
 	MakeEmptyRELASI(R);
 	for(i=0,j=0,t=1;baca!=EOF&&i<MaxNArr*MaxNArr;){
 		if(baca!=';'&&baca!=' '&&baca!='\n'){
@@ -159,9 +159,9 @@ void BacaFile(ArrSTATUS *TabS, ArrALPHA *TabA, RELASI *R, int *IdxStart){
 				(*R).IdxAlphabet[i] = CariAlphabet(*TabA, ATemp);
 				(*R).IdxFState[i] = CariState(*TabS, STemp2);
 				i++;
-				SetStrNull(STemp);
-				SetStrNull(ATemp);
-				SetStrNull(STemp2);
+				SetStrNul(STemp);
+				SetStrNul(ATemp);
+				SetStrNul(STemp2);
 				t=1;
 			}
 			else
@@ -216,7 +216,7 @@ void BacaInputDFA(ArrALPHA TabA, RELASI R, ArrINPUT *TabI, int IdxStart){
 		}while(baca!=';');
 		//Baca alfabet input
 		baca= (char) fgetc(f);
-		SetStrNull(ATemp);
+		SetStrNul(ATemp);
 		(*TabI).In[i].ValidIn=true;
 		CurIdxS = IdxStart;
 		for(j=0,k=0;baca!='\n'&&j<(*TabI).In[i].Neff;){
@@ -231,7 +231,7 @@ void BacaInputDFA(ArrALPHA TabA, RELASI R, ArrINPUT *TabI, int IdxStart){
 					if(CurIdxS==IdxUndef)
 						(*TabI).In[i].ValidIn=false;
 				}
-				SetStrNull(ATemp);
+				SetStrNul(ATemp);
 				j++;
 				k=0;
 			}
@@ -318,7 +318,7 @@ void TulisHasil(ArrSTATUS TabS, ArrALPHA TabA, ArrINPUT TabI, RELASI R, int IdxS
 }
 
 /* Kelompok Manipulasi String */
-void SetStrNull(char *s){
+void SetStrNul(char *s){
 	/* Kamus */
 	int i;
 	/* Algoritma */
