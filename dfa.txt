@@ -17,7 +17,7 @@
 #format: diawali dengan karakter '*' dan diakhiri ';'
 #format: setelah karakter '*' ada tepat sebuah ' ' (spasi) lalu diisi status akhir yang banyaknya antara 1 hingga banyak_status
 #format: jika status lebih dari 1, dipisahkan dengan karakter ','
-* S4;
+* s_socket,c_socket,both_socket,s_socket_binded,both_socket_binded,s_socket_listening,both_socket_listening,connected,accepted,sending,blocking,closed;
 #Fungsi transisi
 #format: bisa lebih dari satu baris, namun tidak lebih dari banyak_status*banyak_alfabet
 #format: untuk tiap baris, berformat status_sekarang alfabet_input status_selanjutnya yang dipisahkan oleh ' '(spasi) dan diakhiri dengan karakter ';'
