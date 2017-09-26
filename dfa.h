@@ -110,7 +110,7 @@ void TulisHasil(ArrSTATUS TabS, ArrALPHA TabA, ArrINPUT TabI, RELASI R, int IdxS
 */
 
 //Kelompok Manipulasi String
-void SetStrNull(char *s);
+void SetStrNul(char *s);
 /* I.S. : string S sembarang
    F.S. : string S terdefinisi kosong/Null
    Deskripsi : mengisi string S dengan Null
