@@ -2,13 +2,16 @@
 #Banyak input DFA
 #aturan: satu baris
 #format: berisi angka yang menyatakan banyak_input dan diakhiri dengan karakter ';'
-5;
+8;
 #Input DFA
 #format: untuk setiap input hanya 1 baris
 #format input: diawali dengan banyak_alfabet_input yang menyatakan banyak alfabet input pada satu input yang diakhiri dengan karakter ';'
 #format input: selanjutnya berisi alfabet sebanyak banyak_alfabet_input yang di pisahkan dengan karakter ',' dan diakhiri dengan karakter ';'
-5;a,b,c,a,a;
-2;a,a;
-3;b,a,c;
-2;b,a;
-10;a,b,c,a,a,a,c,c,b,c;
+0;;
+1;Closed;
+2;OpenS,OpenC;
+4;Bind,OpenS,OpenC,Accept;
+10;OpenS,OpenC,Bind,Bind,Listen,Connect,Accept,WriteS,ReadS,Close;
+5;OpenS,OpenS,OpenS,OpenS,OpenS;
+6;OpenS,Bind,Listen,Listen,OpenC,Connect;
+15;OpenS,OpenC,Bind,Listen,Connect,Accept,ReadC,WriteS,ReadS,ReadC,WriteS,Wait,Unblocking,WriteS,Close;
