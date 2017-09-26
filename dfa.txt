@@ -2,11 +2,11 @@
 #status
 #aturan: satu baris
 #format: banyak_status;status1,status2,..,statusN;
-8;initial,s_socket,c_socket,both_socket,s_socket_binded,both_socket_binded,s_socket_listening,both_socket_listening,connected,accepted,sending,blocking,closed;
+13;initial,s_socket,c_socket,both_socket,s_socket_binded,both_socket_binded,s_socket_listening,both_socket_listening,connected,accepted,sending,blocking,closed;
 #Alfabet
 #aturan: satu baris
 #format: banyak_alfabet;alfabet1,alfabet2,..,alfabetN;
-15;OpenS,OpenC,Bind,Listen,Accept,Connect,Request,Receive,ReadS,WriteS,ReadC,WriteC,Wait,Unblocking,Close;
+13;OpenS,OpenC,Bind,Listen,Accept,Connect,ReadS,WriteS,ReadC,WriteC,Wait,Unblocking,Close;
 #Status awal
 #aturan: satu baris
 #format: diawali dengan karakter '>' dan diakhiri ';'
