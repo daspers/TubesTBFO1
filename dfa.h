@@ -6,7 +6,7 @@
 
 #define IdxUndef -1
 #define MaxNArr 50
-#define MaxNStr 20
+#define MaxNStr 25
 #define MaxNIn 20
 #define ManNAlphaIn 200
 
