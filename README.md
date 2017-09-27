@@ -4,6 +4,8 @@ LINK SPESIFIKASI TUBES : https://drive.google.com/file/d/0B56TgUl34_THaUFoVU9sUV
 
 LINK Gambar DFA : https://drive.google.com/open?id=0B4xpMJ_0KDG_cUROWWZmbTlQcjA
 
+LINK Laporan : https://drive.google.com/open?id=0B4xpMJ_0KDG_Mm5MV1R4QThkQnc
+
 Deskripsi File :
 1. **dfa.h** : File header tentang tipe bentukan dan fungsi-fungsi yang berhubungan dengan *DFA*
 2. **dfa.c** : File body yang berisi implementasi dari fungsi-fungsi di file header **dfa.h**
