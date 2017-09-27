@@ -1,6 +1,6 @@
 # Tubes 1 TBFO
 
-LINK SPESIFIKASI TUBES : https://drive.google.com/file/d/0B56TgUl34_THaUFoVU9sUVJuUjQ/view
+LINK SPESIFIKASI TUBES : https://drive.google.com/open?id=0B4xpMJ_0KDG_M2tPZ0Q1RmRRbVE
 
 LINK Gambar DFA : https://drive.google.com/open?id=0B4xpMJ_0KDG_cUROWWZmbTlQcjA
 
